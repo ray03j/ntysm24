@@ -1,0 +1,14 @@
+# Python関連
+__pycache__/
+*.pyc
+*.pyo
+
+# 学習済みモデル
+*.pkl
+*.h5
+*.model
+
+# 環境関連
+env/
+venv/
+
