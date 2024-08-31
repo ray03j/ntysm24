@@ -11,4 +11,4 @@ __pycache__/
 # 環境関連
 env/
 venv/
-
+.env
