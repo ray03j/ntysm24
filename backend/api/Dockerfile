@@ -2,7 +2,7 @@
 FROM python:3.12-slim
 
 # set the working dir.
-WORKDIR /app
+WORKDIR /api
 
 # copy the app dir.
 COPY . .
