@@ -2,17 +2,19 @@ services:
   fastapi:    
     build: ./api   
     volumes:  
-      - ./fastapi:/app    
+      - ./api:/api  
     ports:     
      - 8000:8000    
     restart: always    
     tty: true    
     depends_on:   
        - db  
+    env_file:
+      - .env
     
   db:    
     image: postgres:15    
-    container_name: postgres-db    
+    container_name: ntysm24-db    
     volumes:
      - postgres_data:/var/lib/postgresql/data/    
     environment:     
