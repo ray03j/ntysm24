@@ -1,20 +1,17 @@
 from pydantic import BaseModel
+import uuid, enum
 
-class PlayerBase(BaseModel):
+class PlayerSchema(BaseModel):
+    player_id: uuid.UUID
     name: str
-    position: str
-    overall: int
-    speed: int
+    position_id: uuid.UUID
+    team_id: uuid.UUID
     strength: int
-    technique: int
-    stamina: int
-
-class PlayerCreate(PlayerBase):
-    team_id: int
-
-class Player(PlayerBase):
-    id: int
-    team_id: int
 
     class Config:
         orm_mode = True
+
+class PlayerStatusEnum(enum.Enum):
+    STARTING_LINEUP = "starting_lineup"
+    BENCH = "bench"
+    OUT_OF_BENCH = "out_of_bench"
