@@ -1,8 +1,10 @@
 from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import SQLAlchemyError
 from cruds import player as player_crud
 from db.session import get_db
-from schemas.player import PlayerSchema, PlayerStatusEnum
+from schemas.team import PlayerStatusEnum
+from schemas.player import PlayerSchema
 import uuid 
 from typing import List
 
@@ -21,7 +23,7 @@ def get_players_by_position(position_id: uuid.UUID, db: Session = Depends(get_db
     return players
 
 @router.patch("/{player_id}/status")
-def update_player_status(player_id: uuid.UUID, new_status: PlayerStatusEnum, db: Session, user_id: uuid.UUID):
+def update_player_status(player_id: uuid.UUID, new_status: PlayerStatusEnum, user_id: uuid.UUID, db: Session = Depends(get_db)):
     player = player_crud.get_players_by_id(db, player_id)
     if not player:
         raise HTTPException(status_code=404, detail="Player not found")
@@ -34,7 +36,22 @@ def update_player_status(player_id: uuid.UUID, new_status: PlayerStatusEnum, db:
 
     return player_crud.update_player_status(db, player, new_status)
 
-@router.get("/players/status/{status}", response_model=List[PlayerSchema])
-def get_players_by_status(status: PlayerStatusEnum, db: Session = Depends(get_db)):
-    players = player_crud.get_players_by_status(db, status)
-    return players
+@router.get("/{team_id}/{status}", response_model=List[PlayerSchema])
+def get_players_by_status(team_id: uuid.UUID, status: PlayerStatusEnum, db: Session = Depends(get_db)):
+    try:
+        # プレイヤーを取得
+        players = player_crud.get_players_by_status(db, team_id, status)
+
+        # プレイヤーが見つからない場合、404エラーを返す
+        if not players:
+            raise HTTPException(status_code=404, detail=f"No players found for team {team_id} with status {status}.")
+
+        return players
+
+    except SQLAlchemyError as e:
+        # データベース関連のエラーを処理
+        raise HTTPException(status_code=500, detail="Database error occurred while fetching players.")
+    
+    except Exception as e:
+        # 予期しないエラーを処理
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
