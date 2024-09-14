@@ -1,0 +1,24 @@
+.container {
+    padding: 20px;
+  }
+  
+.title {
+    font-size: 2rem;
+    color: #2b6db2;
+  }
+  
+.unrow {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+.row {
+    font-size: 1.2rem;
+    background-color: #ffcc00;
+    color: #000;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 0px #000;
+  }
+  
