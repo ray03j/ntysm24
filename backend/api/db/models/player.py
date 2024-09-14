@@ -2,10 +2,9 @@ from sqlalchemy import Column, String, Integer, ForeignKey, Enum
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
-from schemas.player import PlayerStatusEnum
+from schemas.team import PlayerStatusEnum
+from db.session import Base
 import uuid
-
-Base = declarative_base()
 
 class Player(Base):
     __tablename__ = 'players'
@@ -14,7 +13,8 @@ class Player(Base):
     name = Column(String(100), nullable=False)
     position_id = Column(UUID(as_uuid=True), ForeignKey('positions.position_id'))
     team_id = Column(UUID(as_uuid=True), ForeignKey('teams.team_id'))
-    strength = Column(Integer, nullable=False)
+    attack = Column(Integer, nullable=False)
+    defense = Column(Integer, nullable=False)
 
     # プレイヤーの状態（ユーザーチームの場合は3つ、他のチームはスタメンのみ）
     status = Column(Enum(PlayerStatusEnum), nullable=False)
