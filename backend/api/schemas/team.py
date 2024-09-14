@@ -1,17 +1,16 @@
 from pydantic import BaseModel
-from typing import List, Optional
-from schemas.player import Player
+from uuid import UUID
+import enum
 
-class TeamBase(BaseModel):
+class TeamSchema(BaseModel):
+    team_id: UUID
     name: str
-    formation: Optional[str] = None
-
-class TeamCreate(TeamBase):
-    pass
-
-class Team(TeamBase):
-    id: int
-    players: List[Player] = []
-
+    user_id: UUID | None  # 管理者がいない場合もあるのでNullable
+    
     class Config:
         orm_mode = True
+
+class PlayerStatusEnum(enum.Enum):
+    STARTING_LINEUP = "starting_lineup"
+    BENCH = "bench"
+    OUT_OF_BENCH = "out_of_bench"
