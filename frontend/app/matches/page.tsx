@@ -1,23 +1,17 @@
 import styles from '../matches/Matches.module.css';
 
-const Matches = () => {
-  const matches = [
-    { id: 1, date: '2024/09/01', opponent: 'チームA', result: '2-1 勝利' },
-    { id: 2, date: '2024/09/07', opponent: 'チームB', result: '1-3 敗北' },
-  ];
-
+const Tactics = () => {
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>試合</h1>
+      <h1 className={styles.title}>戦術設定</h1>
+      <p>ここでは戦術設定を行います。チームの戦術を選んでください。</p>
       <ul className={styles.unrow}>
-        {matches.map((match) => (
-          <li className={styles.row} key={match.id}>
-            {match.date} - {match.opponent} - {match.result}
-          </li>
-        ))}
+        <li className={styles.row}>カウンターアタック</li>
+        <li className={styles.row}>サイド攻撃</li>
+        <li className={styles.row}>ポゼッション</li>
       </ul>
     </div>
   );
 };
 
-export default Matches;
+export default Tactics;
