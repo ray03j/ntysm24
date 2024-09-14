@@ -1,20 +1,14 @@
 from pydantic import BaseModel
+import uuid
 
-class PlayerBase(BaseModel):
+class PlayerSchema(BaseModel):
+    player_id: uuid.UUID
     name: str
-    position: str
-    overall: int
-    speed: int
-    strength: int
-    technique: int
-    stamina: int
-
-class PlayerCreate(PlayerBase):
-    team_id: int
-
-class Player(PlayerBase):
-    id: int
-    team_id: int
+    position_id: uuid.UUID
+    team_id: uuid.UUID
+    attack: int
+    defense: int
 
     class Config:
         orm_mode = True
+
