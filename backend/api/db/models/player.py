@@ -1,7 +1,6 @@
 from sqlalchemy import Column, String, Integer, ForeignKey, Enum
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
 from schemas.team import PlayerStatusEnum
 from db.session import Base
 import uuid
