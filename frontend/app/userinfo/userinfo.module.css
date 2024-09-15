@@ -1,0 +1,66 @@
+/* 全体のコンテナスタイル */
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f4f4f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* プロフィール画像のスタイル */
+  .profileSection {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profilePicture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .profileSection input {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  /* ユーザー情報セクションのスタイル */
+  .infoSection {
+    margin-bottom: 20px;
+  }
+  
+  .infoSection label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .infoSection p {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  /* 通知設定ボタンのスタイル */
+  .toggleButton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ffcc00;
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .toggleButton:hover {
+    background-color: #ff6600;
+  }
+  
