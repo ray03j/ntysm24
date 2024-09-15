@@ -3,11 +3,10 @@ from typing import Dict, List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from routers.player import get_players_by_status
-from schemas.team import PlayerStatusEnum
 from services.game_service import simulate_game
+from schemas.team import PlayerStatusEnum
 from schemas.match import StrategyEnum, SimulateMatchRequest
 from schemas.player import PlayerSchema
-import uuid
 from db.session import get_db
 
 router = APIRouter()
@@ -74,6 +73,13 @@ def simulate_match(request: SimulateMatchRequest, db: Session = Depends(get_db))
     for opponent in opponent_team_players:
         score_probability = calculate_score_probability(opponent, my_team_power["defense"], StrategyEnum.BALANCED)
         if random.random() < score_probability:
+            opponent_total_score += 1
+    
+        # 同点の場合、ランダムでどちらかのチームに1点を加える
+    if my_total_score == opponent_total_score:
+        if random.choice([True, False]):
+            my_total_score += 1
+        else:
             opponent_total_score += 1
 
     return {
