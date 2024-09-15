@@ -2,7 +2,6 @@ import uuid
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
 from db.session import Base
 
 class Team(Base):
