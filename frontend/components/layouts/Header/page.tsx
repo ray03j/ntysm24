@@ -9,8 +9,8 @@ export const Header = () => {
         <ul>
           <li><Link href="/">ホーム</Link></li>
           <li><Link href="/players">選手一覧</Link></li>
-          <li><Link href="/tactics">戦術設定</Link></li>
-          <li><Link href="/matches">試合</Link></li>
+          <li><Link href="/matches">戦術設定</Link></li>
+          <li><Link href="/results">試合</Link></li>
         </ul>
       </nav>
     </header>
