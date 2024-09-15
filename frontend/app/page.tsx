@@ -1,4 +1,4 @@
-import { Header } from "@/conponents/layouts/Header/page";
+import { Header } from "@/components/layouts/Header/page";
 import Image from "next/image";
 
 export default function Home() {
