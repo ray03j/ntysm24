@@ -12,3 +12,6 @@
 env/
 venv/
 .env
+
+localhost.crt
+localhost.key
