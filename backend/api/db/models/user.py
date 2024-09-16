@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Boolean
+from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
 from db.session import Base
@@ -11,6 +11,9 @@ class User(Base):
     name = Column(String, nullable=False)
     email = Column(String, unique=True)
     hashed_password = Column(String)
+
+    # 次の試合までの日数を管理するカラム
+    days_until_next_match = Column(Integer, default=14)
 
     # ユーザーが管理するチームとのリレーション
     team = relationship("Team", back_populates="user")
