@@ -7,9 +7,8 @@ import random
 def get_team_by_name(db: Session, name: str):
     return db.query(Team).filter(Team.name == name).first()
 
-def get_teams(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(Team).offset(skip).limit(limit).all()
-
+def get_player_by_team(db: Session, team_id: UUID):
+    return db.query(Player).filter(Player.team_id == team_id).all()
 
 def create_team(db: Session, team: TeamSchema):
     db_team = Team(name=team.name, coach_name=team.coach_name)
