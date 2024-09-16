@@ -3,18 +3,34 @@ from typing import Dict, List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from routers.player import get_players_by_status
-from services.game_service import simulate_game
 from schemas.team import PlayerStatusEnum
 from schemas.match import StrategyEnum, SimulateMatchRequest
 from schemas.player import PlayerSchema
 from db.session import get_db
+from cruds import user as user_crud
 
 router = APIRouter()
 
-@router.get("/simulate")
-async def simulate():
-    result = simulate_game()
-    return {"result": result}
+@router.post("/{user_id}")
+def check_match_availability(user_id: str, db: Session = Depends(get_db)):
+    # ユーザーを取得
+    user = user_crud.get_user_by_id(db, user_id)
+    
+    if not user:
+        raise HTTPException(status_code=404, detail="ユーザーが見つかりません")
+
+    # 試合日(0日)でなければ試合はできない
+    if user.days_until_next_match != 0:
+        return {
+            "can_play_match": False,
+            "message": f"今日は試合日ではありません。次の試合まであと {user.days_until_next_match} 日です。"
+        }
+    
+    # 試合日(0日)の場合
+    return {
+        "can_play_match": True,
+        "message": "今日は試合日です。試合を行う準備ができています！"
+    }
 
 
 # 得点確率を計算する関数
@@ -43,7 +59,6 @@ def calculate_total_power(players: List[PlayerSchema]) -> Dict[str, int]:
     total_attack = sum(player.attack for player in players)
     total_defense = sum(player.defense for player in players)
     return {"attack": total_attack, "defense": total_defense}
-
 
 
 # 試合をシミュレートするエンドポイント
