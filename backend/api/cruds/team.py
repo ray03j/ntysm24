@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy.dialects.postgresql import UUID
-from db.models import Player, Team
-from schemas.team import TeamSchema, PlayerStatusEnum
+from api.db.models import Player, Team
+from api.schemas.team import TeamSchema, PlayerStatusEnum
 import random
 
 def get_team_by_name(db: Session, name: str):
