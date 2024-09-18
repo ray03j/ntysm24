@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     build-essential
 
 # copy the app dir.
-COPY ./requirements.txt .
+COPY ./api/requirements.txt .
 
 # install libraries.
 RUN pip install --no-cache-dir -r requirements.txt
