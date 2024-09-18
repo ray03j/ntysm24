@@ -1,24 +1,60 @@
+/* 全体のコンテナ */
 .container {
-    padding: 20px;
-  }
-  
+  padding: 20px;
+  background-color: #2b6db2; /* 青色背景で統一 */
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); /* 立体感を加える影 */
+  color: #ffffff; /* 白いテキスト */
+  font-family: 'Press Start 2P', cursive; /* レトロゲーム風フォント */
+  max-width: 1200px;
+  margin: 50px auto;
+}
+
+/* タイトル */
 .title {
-    font-size: 2rem;
-    color: #2b6db2;
-  }
-  
+  font-size: 2rem;
+  color: #ffffff; /* 白いタイトル */
+  text-shadow: 2px 2px 0px #000000, 4px 4px 0px #ffcc00; /* 立体的な影と黄色のフチ */
+  margin-bottom: 20px;
+}
+
+/* リストスタイルのリセット */
 .unrow {
-    list-style-type: none;
-    padding: 0;
-  }
-  
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* リストの各行 */
 .row {
-    font-size: 1.2rem;
-    background-color: #ffcc00;
-    color: #000;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 0px #000;
+  font-size: 1.2rem;
+  background-color: #ffcc00; /* 黄色背景 */
+  color: #000000; /* 黒いテキスト */
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 0px #000000; /* 黒い影で立体感 */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+}
+
+/* ホバー効果で動きを追加 */
+.row:hover {
+  transform: translateY(-3px); /* ホバー時に浮く */
+  box-shadow: 4px 4px 0px #000000; /* 影を大きくして立体感を強調 */
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .container {
+      padding: 15px;
   }
-  
+
+  .title {
+      font-size: 1.5rem;
+  }
+
+  .row {
+      font-size: 1rem;
+      padding: 8px;
+  }
+}

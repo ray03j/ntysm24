@@ -4,13 +4,13 @@ import styles from "./Header.module.css";
 export const Header = () => {
   return (
     <header className={styles.eikan}>
-      <div className={styles.logo}>栄冠イレブン</div>
+      <div className={styles.logo}>EikanEleven</div>
       <nav className={styles.nav}>
         <ul>
-          <li><Link href="/players">選手一覧</Link></li>
-          <li><Link href="/matches">戦術設定</Link></li>
-          <li><Link href="/results">試合</Link></li>
-          <li><Link href="/userinfo">ユーザー設定</Link></li>
+          <li><Link href="/players">Plyers</Link></li>
+          <li><Link href="/matches">Tactics</Link></li>
+          <li><Link href="/results">Matches</Link></li>
+          <li><Link href="/userinfo">User</Link></li>
         </ul>
       </nav>
     </header>
