@@ -9,14 +9,15 @@ RUN apt-get update && apt-get install -y \
     build-essential
 
 # copy the app dir.
-COPY . .
+COPY requirements.txt .
 
 # install libraries.
 RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
 
 # expose the port.
 EXPOSE 8000
 
 # command to run the app using uvicorn.
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", \
-     "--ssl-keyfile", "/app/localhost.key", "--ssl-certfile", "/app/localhost.crt"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
