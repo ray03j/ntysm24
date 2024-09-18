@@ -2,7 +2,7 @@ import uuid
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
-from api.db.session import Base
+from db.session import Base
 
 class Team(Base):
     __tablename__ = 'teams'

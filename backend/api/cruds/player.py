@@ -1,8 +1,8 @@
 from fastapi import Depends
 from sqlalchemy.orm import Session
-from api.db.session import get_db
-from api.db.models import Player
-from api.schemas.team import PlayerStatusEnum
+from db.session import get_db
+from db.models import Player
+from schemas.team import PlayerStatusEnum
 
 import uuid 
 

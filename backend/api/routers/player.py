@@ -1,10 +1,10 @@
 from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
-from api.cruds import player as player_crud
-from api.db.session import get_db
-from api.schemas.team import PlayerStatusEnum
-from api.schemas.player import PlayerSchema
+from cruds import player as player_crud
+from db.session import get_db
+from schemas.team import PlayerStatusEnum
+from schemas.player import PlayerSchema
 import uuid 
 from typing import List
 

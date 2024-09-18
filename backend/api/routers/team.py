@@ -1,10 +1,10 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 # from sqlalchemy.dialects.postgresql import UUID
-from api.schemas.team import TeamSchema
-from api.schemas.player import PlayerSchema
-from api.cruds import team as team_crud
-from api.db.session import get_db
+from schemas.team import TeamSchema
+from schemas.player import PlayerSchema
+from cruds import team as team_crud
+from db.session import get_db
 from typing import List
 import uuid
 

@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from api.db.session import get_db
-from api.routers.auth import get_password_hash, verify_password, create_access_token
-from api.cruds import user as user_crud
-from api.schemas.user import SignupSchema, LoginSchema
+from db.session import get_db
+from routers.auth import get_password_hash, verify_password, create_access_token
+from cruds import user as user_crud
+from schemas.user import SignupSchema, LoginSchema
 router = APIRouter()
 
 @router.post("/signup/")

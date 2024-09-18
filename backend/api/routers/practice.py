@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 import random
-from api.db.session import get_db
-from api.db.models import User, Player
-from api.cruds import user as user_crud
-from api.cruds import player as player_crud
-from api.schemas.team import PlayerStatusEnum
+from db.session import get_db
+from db.models import User, Player
+from cruds import user as user_crud
+from cruds import player as player_crud
+from schemas.team import PlayerStatusEnum
 
 router = APIRouter()
 

@@ -3,11 +3,11 @@ from typing import Dict, List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from routers.player import get_players_by_status
-from api.schemas.team import PlayerStatusEnum
-from api.schemas.match import StrategyEnum, SimulateMatchRequest
-from api.schemas.player import PlayerSchema
-from api.db.session import get_db
-from api.cruds import user as user_crud
+from schemas.team import PlayerStatusEnum
+from schemas.match import StrategyEnum, SimulateMatchRequest
+from schemas.player import PlayerSchema
+from db.session import get_db
+from cruds import user as user_crud
 
 router = APIRouter()
 
