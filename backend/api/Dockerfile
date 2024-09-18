@@ -9,12 +9,11 @@ RUN apt-get update && apt-get install -y \
     build-essential
 
 # copy the app dir.
-COPY ./api/requirements.txt .
+COPY . .
 
 # install libraries.
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
 
 # expose the port.
 EXPOSE 8000
