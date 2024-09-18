@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from api.routers import player, team, match, user, practice
-from api.db.session import engine, Base
+from routers import player, team, match, user, practice
+from db.session import engine, Base
 from fastapi.middleware.cors import CORSMiddleware
 
 
