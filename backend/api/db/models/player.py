@@ -1,8 +1,8 @@
 from sqlalchemy import Column, String, Integer, ForeignKey, Enum
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
-from schemas.team import PlayerStatusEnum
-from db.session import Base
+from api.schemas.team import PlayerStatusEnum
+from api.db.session import Base
 import uuid
 
 class Player(Base):
