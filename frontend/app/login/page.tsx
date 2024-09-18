@@ -1,27 +1,30 @@
 'use client'
 
 import React, { useState } from 'react';
-import styles from './Signin.module.css';
+import axios from 'axios';
+import styles from './Login.module.css';
 
-const Signin = () => {
-  const [isLogin, setIsLogin] = useState(true);
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // login logic
-  };
-
-  const handleSignup = () => {
-    // signup logic
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://localhost:8000/login/', {
+        email: email,
+        password: password,
+      });
+      alert('Login successful! Token: ' + response.data.access_token);
+    } catch (error) {
+      console.error(error);
+      alert('Login failed!');
+    }
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <h2 className={styles.title}>
-          {isLogin ? 'ログイン' : 'サインアップ'}
-        </h2>
+        <h2 className={styles.title}>ログイン</h2>
 
         <div className="mb-4">
           <label className={styles.inputLabel}>メールアドレス</label>
@@ -45,25 +48,12 @@ const Signin = () => {
           />
         </div>
 
-        <button
-          onClick={isLogin ? handleLogin : handleSignup}
-          className={styles.button}
-        >
-          {isLogin ? 'ログイン' : 'サインアップ'}
+        <button onClick={handleLogin} className={styles.button}>
+          ログイン
         </button>
-
-        <p className={styles.switchText}>
-          {isLogin ? 'アカウントをお持ちでないですか？' : '既にアカウントをお持ちですか？'}
-          <button
-            onClick={() => setIsLogin(!isLogin)}
-            className={styles.link}
-          >
-            {isLogin ? 'サインアップ' : 'ログイン'}
-          </button>
-        </p>
       </div>
     </div>
   );
 };
 
-export default Signin;
+export default Login;
