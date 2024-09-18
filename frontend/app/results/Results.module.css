@@ -1,24 +1,45 @@
+/* 全体コンテナ */
 .container {
-    padding: 20px;
-  }
-  
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #2b6db2; /* ヘッダーと同じ背景色 */
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  color: #fff; /* 白いテキスト */
+  text-align: center;
+  font-family: 'Press Start 2P', cursive; /* ヘッダーと同じフォント */
+  position: relative;
+}
+
+/* タイトル */
 .title {
-    font-size: 2rem;
-    color: #2b6db2;
-  }
-  
+  font-size: 2.5rem;
+  color: #ffffff;
+  text-shadow: 2px 2px 0px #000000, 4px 4px 0px #ffcc00;
+  letter-spacing: 3px;
+  margin-bottom: 30px;
+}
+
+/* 結果リスト */
 .unrow {
-    list-style-type: none;
-    padding: 0;
-  }
-  
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .row {
-    font-size: 1.2rem;
-    background-color: #ffcc00;
-    color: #000;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 0px #000;
-  }
-  
+  font-size: 1.2rem;
+  background-color: #ffcc00; /* 背景色を黄色に */
+  color: #000;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 0px #000000; /* 黒いシャドウ */
+  width: 100%; /* 横幅を100%にして整列 */
+  max-width: 600px; /* 最大幅を設定してデザインの統一感を持たせる */
+  text-align: center; /* テキストを中央揃え */
+}
