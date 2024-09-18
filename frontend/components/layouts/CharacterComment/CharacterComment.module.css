@@ -1,0 +1,40 @@
+.characterContainer {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    display: flex;
+    align-items: flex-start;
+    z-index: 1250;
+  }
+  
+  .character {
+    width: 150px;
+    height: auto;
+    margin-right: 10px;
+  }
+  
+  .speechBubble {
+    position: relative;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.5rem;
+    color: #000000;
+    box-shadow: 2px 2px 0px #000000;
+  }
+  
+  .speechBubble::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -10px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-right-color: #ffffff;
+    border-left: 0;
+    border-bottom: 0;
+    margin-top: -10px;
+  }
+  
