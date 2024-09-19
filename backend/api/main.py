@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import player, team, match, user, practice
+from routers import player, team, match, user, practice, rag
 from db.session import engine, Base
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -8,7 +8,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # ReactアプリのURL
+    allow_origins=["*"],  # ReactアプリのURL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -21,3 +21,4 @@ app.include_router(player.router, prefix="/players", tags=["players"])
 app.include_router(team.router, prefix="/teams", tags=["teams"])
 app.include_router(practice.router, prefix="/practice", tags=["practice"])
 app.include_router(match.router, prefix="/match", tags=["match"])
+app.include_router(rag.router, prefix="/rag", tags=["rag"])
