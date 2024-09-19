@@ -1,5 +1,7 @@
+"use client";
 import { Header } from '@/components/layouts/Header/page';
 import CharacterComment from '@/components/layouts/CharacterComment/page'; // キャラクターコメントをインポート
+import SimulateMatchButton from '@/components/layouts/SimulateMatchButton/page'; // シミュレートボタンをインポート
 import styles from '../matches/Matches.module.css';
 
 const Tactics = () => {
@@ -11,13 +13,17 @@ const Tactics = () => {
         <p>ここでは戦術設定を行います。チームの戦術を選んでください。</p>
         
         <ul className={styles.unrow}>
-          <li className={styles.row}>カウンターアタック</li>
-          <li className={styles.row}>サイド攻撃</li>
-          <li className={styles.row}>ポゼッション</li>
+          <li className={styles.row}>Short Counter</li>
+          <li className={styles.row}>Side Attack</li>
+          <li className={styles.row}>Posession</li>
+          <li className={styles.row}>Long Counter</li>
         </ul>
 
         {/* キャラクターコメントを追加 */}
-        <CharacterComment comment="野球と違ってたくさんの戦術があるよ" />
+        <CharacterComment  />
+
+        {/* 試合シミュレーションボタンを追加 */}
+        <SimulateMatchButton />
       </div>
     </div>
   );

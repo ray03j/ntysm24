@@ -45,7 +45,7 @@ const TeamPage = () => {
         <h1 className={styles.sutamen}>My Team</h1>
 
         {/* キャラクターコメントを追加 */}
-        <CharacterComment comment="今日はベンチに入れない選手が多いなあ..." />
+        <CharacterComment  />
 
         {/* タブの切り替え */}
         <div className={styles.tabs}>
