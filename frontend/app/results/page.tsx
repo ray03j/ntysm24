@@ -22,7 +22,7 @@ const Matches = () => {
       </ul>
 
       {/* キャラクターコメントを追加 */}
-      <CharacterComment comment="ポンポン点が決まらないから熱中して見れるね" />
+      <CharacterComment  />
     </div>
     </div>
   );
