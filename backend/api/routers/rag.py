@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import JSONResponse
-import httpx
 from dotenv import load_dotenv
+import requests
 import os
 from schemas.rag import DifyChatRequest
+import json
 
 # .envファイルを読み込む
 load_dotenv()
@@ -19,48 +20,54 @@ async def chat_with_dify(request: DifyChatRequest):
     try:
         print("get request body")
         # リクエストのボディを取得
+        
         payload = request.dict()
 
         print("post Dify request")
         print(type(DIFY_API_URL))
+        print(DIFY_API_URL)
         print(type(API_KEY))
         print(payload)
-        print(DIFY_API_URL)
+        print(DIFY_API_URL+'/chat-messages')
         print( f"Bearer {API_KEY}")
         # DifyにPOSTリクエストを送信
-        async with httpx.AsyncClient() as client:
-            response = await client.post(DIFY_API_URL, json=payload, headers={
-                "Authorization": f"Bearer {API_KEY}",
-                "Content-Type": "application/json"
-            })
+
+        # requestsをつかったリクエスト
+        res = requests.post(DIFY_API_URL+'/chat-messages', json=payload, headers={
+            "Authorization": f"Bearer {API_KEY}",
+            "Content-Type": "application/json"
+        })
+
+        print(res)
 
             # ステータスコードの確認
-            if response.status_code != 200:
-                print(response.text)
-                raise HTTPException(status_code=response.status_code, detail="Error in Dify API request")
+        if res.status_code != 200:
+            print(res.text)
+            raise HTTPException(status_code=res.status_code, detail="Error in Dify API request")
 
-            # レスポンスの内容を確認する
-            res_text = await response.text()  # JSONでなくても確認できるようにtext()を使う
-            print("Dify API Response:", res_text)  # デバッグ用にレスポンス内容をログに出力
+        if res.status_code == 200:
+            print(res.text)
+            return json.loads(res.text)
 
-            # レスポンスが空でないか確認する
-            if not res_text:
-                raise HTTPException(status_code=500, detail="Received empty response from Dify API")
+        # レスポンスの内容を確認する
+        res_text = await res.text()  # JSONでなくても確認できるようにtext()を使う
+        print("Dify API Response:", res_text)  # デバッグ用にレスポンス内容をログに出力
 
-            # レスポンスがJSONとしてパース可能か確認
-            try:
-                # res_json = response.json()  # `response.json`を参照することで問題が発生する可能性あり
-                if callable(res_json):  # もし`response.json()`が関数なら
-                    return res_json()  # 実際にJSONを返す
-                else:
-                    raise ValueError("response.json is not callable")
-            except ValueError:
-                raise HTTPException(status_code=500, detail="Received invalid JSON from Dify API")
+        # レスポンスが空でないか確認する
+        if not res_text:
+            raise HTTPException(status_code=500, detail="Received empty response from Dify API")
 
-    except httpx.RequestError as exc:
-        # HTTPリクエストエラー（接続失敗など）
-        raise HTTPException(status_code=500, detail=f"HTTP request error: {exc}")
+        # レスポンスがJSONとしてパース可能か確認
+        try:
+            res_json = res.json()  # `response.json`を参照することで問題が発生する可能性あり
+            if callable(res_json):  # もし`response.json()`が関数なら
+                return res_json()  # 実際にJSONを返す
+            else:
+                raise ValueError("response.json is not callable")
+        except ValueError:
+            raise HTTPException(status_code=500, detail="Received invalid JSON from Dify API")
 
-    except Exception as exc:
+
+    except Exception as err:
         # その他のエラー
-        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {exc}")
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {err}")
