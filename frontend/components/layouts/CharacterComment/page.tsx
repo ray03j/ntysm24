@@ -15,9 +15,8 @@ interface DifyChatRequest {
 
 type ResponseData = {
   status: string;  // "success" や "error" などのステータス
-  data: {
-    answer:string
-  };    // FastAPIで処理されたデータ
+  answer:string
+     // FastAPIで処理されたデータ
 };
 const CharacterComment: React.FC = () => {
   const [apiComment, setApiComment] = useState<string>(''); // APIのレスポンス用の状態を追加
@@ -25,10 +24,10 @@ const CharacterComment: React.FC = () => {
 
   // データ (リクエストボディ用)
   const requestPayload: DifyChatRequest = {
-    inputs: {},                   // 空の入力オブジェクト
-    query: "野球を嫌いな理由を教えてください。２ちゃんねらーっぽく答えてください",  // 質問内容
-    response_mode: "streaming",    // 応答モード
-    user: "9997bec3-4376-4a2d-9140-a7e8731218e9"               // ユーザーID
+    "inputs": {},
+    "query": "ギラヴァンツ北九州",
+    "response_mode": "blocking",
+    "user": "9be0a4ae-9b70-4c18-909b-64a924779d3b"
   };
 
   // API を呼び出してコメントを取得する useEffect フック
@@ -40,10 +39,15 @@ const CharacterComment: React.FC = () => {
             "Content-Type": "application/json",
           }
         }); 
-
+        console.log(response)
         // サーバーからのレスポンスを状態に保存
-        const answer :string =JSON.stringify(response.data)
-        setApiComment(answer); // `result`キーにアクセスする必要があるか確認
+        const answer :string =JSON.stringify(response.data.answer)
+        const formattedAnswer = answer
+        .trim()                     // 先頭と末尾の空白を削除
+        .replace(/"/g, '')           // " を削除
+        .replace(/\n+$/, '');        // 最後の改行のみを削除
+        
+        setApiComment(formattedAnswer); // `result`キーにアクセスする必要があるか確認
         setError(null); // エラーがない場合はエラーメッセージをクリア
         console.log('レスポンス:', response.data);
 
