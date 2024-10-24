@@ -1,5 +1,5 @@
-"use client"; // 追加: クライアントコンポーネントを示す
-import { useEffect, useState } from 'react';
+"use client"; // クライアントコンポーネントを示す
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation'; // useSearchParamsをインポート
 import styles from '../result/Result.module.css'; // CSSモジュールをインポート
 import { Header } from '@/components/layouts/Header/page';
@@ -36,4 +36,13 @@ const ResultsPage = () => {
   );
 };
 
-export default ResultsPage;
+// ResultsPageをSuspenseでラップ
+const PageWrapper = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResultsPage />
+    </Suspense>
+  );
+};
+
+export default PageWrapper;
