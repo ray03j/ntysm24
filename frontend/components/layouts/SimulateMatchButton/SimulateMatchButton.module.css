@@ -1,19 +1,16 @@
-button {
-    font-size: 1.2rem;
-    background-color: #ffcc00; /* 黄色背景 */
-    color: #000000; /* 黒いテキスト */
-    padding: 10px 20px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: 'Press Start 2P', cursive; /* レトロゲーム風フォント */
-    box-shadow: 2px 2px 0px #000000; /* ボタンの黒い影 */
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s;
-  }
+.btn {
+  font-size: 1.2rem;
+  background-color: #ffcc00; /* 黄色背景 */
+  color: #000000; /* 黒いテキスト */
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 0px #000000; /* 黒い影で立体感 */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+}
   
   /* ボタンのホバー効果 */
-  button:hover {
+  .btn:hover {
     transform: translateY(-3px); /* ホバー時に浮く */
     box-shadow: 4px 4px 0px #000000; /* 影を大きくして立体感を強調 */
   }
@@ -33,7 +30,7 @@ button {
         padding: 8px;
     }
   
-    button {
+    .btn {
         font-size: 1rem;
         padding: 8px 16px;
     }

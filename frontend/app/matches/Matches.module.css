@@ -25,18 +25,6 @@
   margin: 0;
 }
 
-/* リストの各行 */
-.row {
-  font-size: 1.2rem;
-  background-color: #ffcc00; /* 黄色背景 */
-  color: #000000; /* 黒いテキスト */
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 2px 2px 0px #000000; /* 黒い影で立体感 */
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s;
-}
-
 /* ホバー効果で動きを追加 */
 .row:hover {
   transform: translateY(-3px); /* ホバー時に浮く */

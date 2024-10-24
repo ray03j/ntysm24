@@ -1,33 +1,21 @@
-import React from 'react';
-import axios from 'axios';
+// components/layouts/SimulateMatchButton/page.tsx
+import React, { PropsWithChildren } from 'react';
+import styles from "./SimulateMatchButton.module.css";
 
-const SimulateMatchButton: React.FC = () => {
-  // シミュレートするためのデータ
-  const requestData = {
-    my_team_id: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', // 実際のUUIDを入れてください
-    opponent_team_id: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', // 実際のUUIDを入れてください
-    strategy: 'aggressive' // 戦術の種類
-  };
+// propsの型定義 (TypeScript)
+type SimulateMatchButtonProps = PropsWithChildren<{
+  strategy: string; // 戦術を受け取るためのプロップ
+  onClick: (strategy: string) => void; // 戦術を引数に取るコールバック
+}>;
 
-  // ボタンをクリックしたときにPOSTリクエストを送信
-  const handleSimulateMatch = async () => {
-    try {
-      const response = await axios.post('http://localhost:8000/match/simulate_match/', requestData, {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
-
-      // サーバーからのレスポンス
-      console.log('レスポンス:', response.data);
-    } catch (error) {
-      console.error('エラーが発生しました:', error);
-    }
+const SimulateMatchButton: React.FC<SimulateMatchButtonProps> = ({ strategy, children, onClick }) => {
+  const handleClick = () => {
+    onClick(strategy); // 戦術を引数としてコールバックを呼び出す
   };
 
   return (
     <div>
-      <button onClick={handleSimulateMatch}>Simulate</button>
+      <button className={styles.btn} onClick={handleClick}>{children}</button>
     </div>
   );
 };
