@@ -14,11 +14,12 @@ class MatchSchema(BaseModel):
         orm_mode = True
 
 class StrategyEnum(str, Enum):
-    ATTACK = "attack"
-    DEFENSE = "defense"
-    BALANCED = "balanced"
+    SHORT_COUNTER = "short_counter"
+    SIDE_ATTACK = "side_attack"
+    POSESSION = "posession"
+    LONG_COUNTER = "long_counter"
 
 class SimulateMatchRequest(BaseModel):
     my_team_id: uuid.UUID
     opponent_team_id: uuid.UUID
-    strategy: str
+    strategy: StrategyEnum

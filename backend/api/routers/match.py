@@ -11,6 +11,7 @@ from cruds import user as user_crud
 
 router = APIRouter()
 
+# ユーザーが試合を行えるかどうかチェックするエンドポイント
 @router.post("/{user_id}")
 def check_match_availability(user_id: str, db: Session = Depends(get_db)):
     # ユーザーを取得
@@ -32,18 +33,21 @@ def check_match_availability(user_id: str, db: Session = Depends(get_db)):
         "message": "今日は試合日です。試合を行う準備ができています！"
     }
 
-
-# 得点確率を計算する関数
+# 戦略ごとの攻撃力補正を適用する関数
 def calculate_score_probability(player: PlayerSchema, opponent_defense: int, strategy: StrategyEnum):
     base_attack = player.attack
 
     # 戦略に応じて攻撃力に補正をかける
-    if strategy == StrategyEnum.ATTACK:
-        attack_multiplier = 1.2  # 攻撃重視では攻撃力を20%増加
-    elif strategy == StrategyEnum.DEFENSE:
-        attack_multiplier = 0.8  # 守備重視では攻撃力を20%減少
-    else:  # BALANCED 戦略
-        attack_multiplier = 1.0
+    if strategy == StrategyEnum.SHORT_COUNTER:
+        attack_multiplier = 1.1  # ショートカウンターでは攻撃力を10%増加
+    elif strategy == StrategyEnum.SIDE_ATTACK:
+        attack_multiplier = 1.0  # サイドアタックでは標準の攻撃力
+    elif strategy == StrategyEnum.POSESSION:
+        attack_multiplier = 0.9  # ポゼッションでは攻撃力を10%減少（ボール保持優先）
+    elif strategy == StrategyEnum.LONG_COUNTER:
+        attack_multiplier = 1.2  # ロングカウンターでは攻撃力を20%増加
+    else:
+        attack_multiplier = 1.0  # デフォルトの攻撃力
 
     # 攻撃力に補正を適用
     modified_attack = base_attack * attack_multiplier
@@ -53,13 +57,11 @@ def calculate_score_probability(player: PlayerSchema, opponent_defense: int, str
 
     return score_probability
 
-
 # チームの攻撃力と守備力を計算する関数
 def calculate_total_power(players: List[PlayerSchema]) -> Dict[str, int]:
     total_attack = sum(player.attack for player in players)
     total_defense = sum(player.defense for player in players)
     return {"attack": total_attack, "defense": total_defense}
-
 
 # 試合をシミュレートするエンドポイント
 @router.post("/simulate_match/")
@@ -86,11 +88,11 @@ def simulate_match(request: SimulateMatchRequest, db: Session = Depends(get_db))
 
     # 相手チームの得点判定
     for opponent in opponent_team_players:
-        score_probability = calculate_score_probability(opponent, my_team_power["defense"], StrategyEnum.BALANCED)
+        score_probability = calculate_score_probability(opponent, my_team_power["defense"], StrategyEnum.SIDE_ATTACK)
         if random.random() < score_probability:
             opponent_total_score += 1
     
-        # 同点の場合、ランダムでどちらかのチームに1点を加える
+    # 同点の場合、ランダムでどちらかのチームに1点を加える
     if my_total_score == opponent_total_score:
         if random.choice([True, False]):
             my_total_score += 1
